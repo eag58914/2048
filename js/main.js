@@ -1,7 +1,11 @@
 /*----- constants -----*/
-
+const PLAYERS = {
+	'0': 'white',
+	'1': 'blue',
+	'-1': 'red'
+};
 /*----- app's state (variables) -----*/
-let grid;
+let grid, turn, winner;
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
@@ -14,6 +18,18 @@ function init() {
 	addTwoOrFour();
 	addTwoOrFour();
 	console.table(grid);
+	turn = 1;
+	winner = null;
+	render();
+}
+function render() {
+	//render through the board
+	// grid.forEach(function(arr) {
+	// 	arr.forEach(function(cell) {
+	// 		let div = document.getElementById('cell');
+	// 		console.log(div);
+	// 	});
+	// });
 }
 
 function addTwoOrFour() {
@@ -29,4 +45,11 @@ function addTwoOrFour() {
 	let randomSpot = options[Math.floor(Math.random() * options.length)];
 	let number = Math.random() < 0.5 ? 2 : 4;
 	grid[randomSpot.x][randomSpot.y] = number;
+}
+function slide(row) {
+	let arr = row.filter((val) => val);
+	let missing = 4 - arr.length;
+	let zeros = Array(missing).fill(0);
+	arr = arr.concat(zeros);
+	return arr;
 }
