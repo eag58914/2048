@@ -9,7 +9,7 @@ let grid, turn, winner;
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
-
+document.addEventListener('keydown', keyPress, false);
 /*----- functions -----*/
 init();
 function init() {
@@ -18,6 +18,7 @@ function init() {
 	turn = 1;
 	winner = null;
 	render();
+	checKeyPress();
 }
 function render() {}
 
@@ -53,4 +54,10 @@ function combine(row) {
 		}
 	}
 	return row;
+}
+
+function keyPress(e) {
+	if (e.keyCode == '37' || '38' || '39' || '40') {
+		alert('The up letter key has been pressed ');
+	}
 }
