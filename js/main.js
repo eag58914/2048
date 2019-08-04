@@ -14,23 +14,12 @@ let grid, turn, winner;
 init();
 function init() {
 	grid = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ];
-	console.table(grid);
-	addTwoOrFour();
-	addTwoOrFour();
-	console.table(grid);
+	console.log(grid);
 	turn = 1;
 	winner = null;
 	render();
 }
-function render() {
-	//render through the board
-	// grid.forEach(function(arr) {
-	// 	arr.forEach(function(cell) {
-	// 		let div = document.getElementById('cell');
-	// 		console.log(div);
-	// 	});
-	// });
-}
+function render() {}
 
 function addTwoOrFour() {
 	let options = [];
@@ -50,6 +39,18 @@ function slide(row) {
 	let arr = row.filter((val) => val);
 	let missing = 4 - arr.length;
 	let zeros = Array(missing).fill(0);
-	arr = arr.concat(zeros);
+	arr = zeros.concat(arr);
 	return arr;
+}
+
+function combine(row) {
+	for (let i = 3; i >= 0; i--) {
+		let a = row[i];
+		let b = row[i - 1];
+		if (a == b) {
+			row[i] = a + b;
+			row[i - 1] = 0;
+		}
+	}
+	return row;
 }
