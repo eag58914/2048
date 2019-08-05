@@ -1,26 +1,31 @@
 /*----- constants -----*/
-const PLAYERS = {
-	'0': 'white',
-	'1': 'blue',
-	'-1': 'red'
-};
+let boardSpots = document.querySelectorAll('div');
 /*----- app's state (variables) -----*/
 let grid, turn, winner;
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
-document.addEventListener('keydown', keyPress, false);
+
 /*----- functions -----*/
 init();
+
 function init() {
-	grid = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ];
+	grid = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 2, 2 ], [ 0, 0, 0, 0 ] ];
 	console.log(grid);
 	turn = 1;
 	winner = null;
 	render();
-	checKeyPress();
 }
-function render() {}
+function render() {
+	grid.forEach(function(colIdx, rowIdx) {
+		let div = document.getElementById(`c${colIdx}r${rowIdx}`);
+	});
+	//console.log(bordSpots);
+	boardSpots.forEach((el) => {
+		console.log(el);
+		//el.innerText = `${}`;
+	});
+}
 
 function addTwoOrFour() {
 	let options = [];
@@ -37,11 +42,13 @@ function addTwoOrFour() {
 	grid[randomSpot.x][randomSpot.y] = number;
 }
 function slide(row) {
-	let arr = row.filter((val) => val);
-	let missing = 4 - arr.length;
-	let zeros = Array(missing).fill(0);
-	arr = zeros.concat(arr);
-	return arr;
+	row.forEach(function() {
+		let arr = row.filter((val) => val);
+		let missing = 4 - arr.length;
+		let zeros = Array(missing).fill(0);
+		arr = zeros.concat(arr);
+		return arr;
+	});
 }
 
 function combine(row) {
@@ -56,8 +63,19 @@ function combine(row) {
 	return row;
 }
 
-function keyPress(e) {
-	if (e.keyCode == '37' || '38' || '39' || '40') {
-		alert('The up letter key has been pressed ');
+document.addEventListener('keydown', function keyPress(event) {
+	switch (event.keyCode) {
+		case 38:
+			alert('up key pressed');
+			break;
+		case 40:
+			alert('down key pressed');
+			break;
+		case 37:
+			alert('left key pressed');
+			break;
+		case 39:
+			alert('right key pressed');
+			break;
 	}
-}
+});
