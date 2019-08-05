@@ -42,17 +42,15 @@ function addTwoOrFour() {
 	grid[randomSpot.x][randomSpot.y] = number;
 }
 function slide(row) {
-	row.forEach(function() {
-		let arr = row.filter((val) => val);
-		let missing = 4 - arr.length;
-		let zeros = Array(missing).fill(0);
-		arr = zeros.concat(arr);
-		return arr;
-	});
+	let arr = row.filter((val) => val);
+	let missing = 4 - arr.length;
+	let zeros = Array(missing).fill(0);
+	arr = zeros.concat(arr);
+	return arr;
 }
 
 function combine(row) {
-	for (let i = 3; i >= 0; i--) {
+	for (let i = 3; i >= 1; i--) {
 		let a = row[i];
 		let b = row[i - 1];
 		if (a == b) {
@@ -79,3 +77,10 @@ document.addEventListener('keydown', function keyPress(event) {
 			break;
 	}
 });
+
+function operate(row) {
+	row = slide(row);
+	row = combine(row);
+	row = slide(row);
+	return row;
+}
